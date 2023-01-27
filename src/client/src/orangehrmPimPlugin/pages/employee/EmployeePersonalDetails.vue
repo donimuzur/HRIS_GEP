@@ -62,6 +62,13 @@
                 :rules="rules.employeeId"
                 :disabled="!$can.update(`personal_sensitive_information`)"
               />
+            </oxd-grid-item> 
+            <oxd-grid-item>
+              <oxd-input-field
+                v-model="employee.pin"
+                :label="$t('pim.pin')"
+                :rules="rules.pin"
+              />
             </oxd-grid-item>
             <oxd-grid-item>
               <oxd-input-field
@@ -208,6 +215,7 @@ const employeeModel = {
   middleName: '',
   lastName: '',
   employeeId: '',
+  pin: '',
   otherId: '',
   drivingLicenseNo: '',
   drivingLicenseExpiredDate: '',
@@ -273,6 +281,7 @@ export default {
         middleName: [shouldNotExceedCharLength(30)],
         lastName: [required, shouldNotExceedCharLength(30)],
         employeeId: [shouldNotExceedCharLength(10)],
+        pin: [shouldNotExceedCharLength(30)],
         otherId: [shouldNotExceedCharLength(30)],
         drivingLicenseNo: [shouldNotExceedCharLength(30)],
         ssnNumber: [shouldNotExceedCharLength(30)],

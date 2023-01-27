@@ -549,6 +549,13 @@ class Employee
      * @ORM\OneToMany(targetEntity="OrangeHRM\Entity\AttendanceRecord", mappedBy="employee")
      */
     private iterable $attendanceRecords;
+    
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="pin", type="string", length=30, nullable=true)
+     */
+    private ?string $pin = null;
 
     /**
      * Constructor
@@ -1565,5 +1572,21 @@ class Employee
     public function setSupervisors(iterable $supervisors): void
     {
         $this->supervisors = $supervisors;
+    }
+
+     /**
+     * @return string|null
+     */
+    public function getPin(): ?string
+    {
+        return $this->pin;
+    }
+
+    /**
+     * @param string|null
+     */
+    public function setPin(?string $pin): void
+    {
+        $this->pin = $pin;
     }
 }

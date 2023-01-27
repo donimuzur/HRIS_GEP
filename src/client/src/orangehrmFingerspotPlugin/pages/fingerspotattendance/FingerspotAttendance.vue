@@ -4,22 +4,26 @@
       <oxd-form @submitValid="filterItems" @reset="filterItems">
         <oxd-form-row>
           <oxd-grid :cols="4" class="orangehrm-full-width-grid">
-             <oxd-grid-item>
+            <oxd-grid-item :cols="4">
               <date-input
-                v-model="filters.scanDate"
-                :label="$t('Scan Date')"
+                v-model="filters.startDate"
+                :label="$t('Start Date')"
                 required
               />
-             </oxd-grid-item>
-          </oxd-grid>
+            </oxd-grid-item>
+            <oxd-grid-item :cols="4">
+              <date-input
+                v-model="filters.endDate"
+                :label="$t('End Date')"
+                required
+              />
+            </oxd-grid-item>
+        </oxd-grid>
+         
           <oxd-grid :cols="4" class="orangehrm-full-width-grid">
             <oxd-grid-item>
             <employee-autocomplete
                 v-model="filters.pin"
-                :rules="rules.employee"
-                :params="{
-                  includeEmployees: filters.includeEmployees?.param,
-                }"
                 required
               />
             </oxd-grid-item>
@@ -44,8 +48,8 @@
     </oxd-table-filter>
     <br />
     <div class="orangehrm-paper-container">
-      <!-- <div
-        v-if="$can.create('fingerspot_list')"
+      <div
+        v-if="$can.create('fingerspotattendance_list')"
         class="orangehrm-header-container"
       >
       <oxd-button
@@ -82,7 +86,7 @@
           v-model:current="currentPage"
           :length="pages"
         />
-      </div> -->
+      </div>
     </div>
     <delete-confirmation ref="deleteDialog"></delete-confirmation>
   </div>
@@ -129,10 +133,11 @@ export default {
         };
       });
     };
-
+    
     const filters = ref({
       pin: '',
-      scanDate:null,
+      startDate: new Date().toISOString().slice(0,10),
+      endDate: new Date().toISOString().slice(0,10),
     });
     const {sortDefinition, sortField, sortOrder, onSort} = useSort({
       sortDefinition: defaultSortOrder,
@@ -140,8 +145,9 @@ export default {
     const serializedFilters = computed(() => {
       return {
         model: 'default',
-        pin: filters.value.pin,
-        scanDate: filters.value.scanDate,
+        pin: filters.value.pin.pin,
+        startDate: filters.value.startDate,
+        endDate: filters.value.endDate,
         sortField: sortField.value,
         sortOrder: sortOrder.value,
       };
@@ -164,7 +170,6 @@ export default {
       query: serializedFilters,
       normalizer: dataNormalizer,
     });
-
     // onSort(execQuery);
 
     return {

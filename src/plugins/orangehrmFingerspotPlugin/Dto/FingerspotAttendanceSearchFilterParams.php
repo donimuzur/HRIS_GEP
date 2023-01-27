@@ -26,12 +26,16 @@ class FingerspotAttendanceSearchFilterParams extends FilterParams
      /**
      * @var DateTime|null
      */
-    protected ?DateTime $scanDate = null;
+    protected ?DateTime $startDate = null;
+
+     /**
+     * @var DateTime|null
+     */
+    protected ?DateTime $endDate = null;
 
     public function __construct()
     {
         $this->setSortField('fingerspotAttendance.pin');
-       // $this->scanDate = \DateTime::createFromFormat("Y/m/d",date("Y/m/d"));
     }
 
     /**
@@ -53,16 +57,32 @@ class FingerspotAttendanceSearchFilterParams extends FilterParams
     /**
      * @return DateTime|null
      */
-    public function getScanDate(): ?DateTime
+    public function getStartDate(): ?DateTime
     {
-        return $this->scanDate;
+        return $this->startDate;
     }
 
     /**
      * @param DateTime|null $pin
      */
-    public function setScanDate(?DateTime $scanDate): void
+    public function setStartDate(?DateTime $startDate): void
     {
-        $this->scanDate = $scanDate;
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getEndDate(): ?DateTime
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * @param DateTime|null $pin
+     */
+    public function setEndDate(?DateTime $endDate): void
+    {
+        $this->endDate = $endDate;
     }
 }

@@ -64,7 +64,7 @@ class FingerspotAttendanceDao extends BaseDao
     {
         try {
             $paginator = $this->getSearchFingerspotAttendancePaginator($FingerspotAttendanceSearchParams);
-            $tmp = $paginator->getQuery()->getSQL();
+            // $tmp = $paginator->getQuery()->getSQL();
             return $paginator->getQuery()->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage(), $e->getCode(), $e);
@@ -84,9 +84,13 @@ class FingerspotAttendanceDao extends BaseDao
             $q->andWhere('fingerspotAttendance.pin= :pin')
             ->setParameter('pin', $FingerspotAttendanceSearchParams->getPin());
         }
-        if(!is_null($FingerspotAttendanceSearchParams->getScanDate())){
-            $q->andWhere('fingerspotAttendance.scanDate >= :scanDate')
-                ->setParameter('scanDate',$FingerspotAttendanceSearchParams->getScanDate()->format('Y-m-d') );
+        if(!is_null($FingerspotAttendanceSearchParams->getStartDate())){
+            $q->andWhere('fingerspotAttendance.scanDate >= :startDate')
+                ->setParameter('startDate',$FingerspotAttendanceSearchParams->getStartDate()->format('Y-m-d').' 00:00:00',"string");
+        }
+        if(!is_null($FingerspotAttendanceSearchParams->getEndDate())){
+            $q->andWhere('fingerspotAttendance.scanDate <= :endDate')
+                ->setParameter('endDate',$FingerspotAttendanceSearchParams->getEndDate()->format('Y-m-d').' 23:59:59', "string");
         }
         return $this->getPaginator($q);
     }

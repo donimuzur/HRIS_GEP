@@ -48,6 +48,7 @@
                       id: employee.empNumber,
                       label: `${employee.firstName} ${employee.middleName} ${employee.lastName}`,
                       _employee: employee,
+                      pin:employee.pin
                     };
                   }),
                 );

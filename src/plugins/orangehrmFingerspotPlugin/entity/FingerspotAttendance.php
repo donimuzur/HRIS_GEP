@@ -13,7 +13,7 @@ use OrangeHRM\Entity\Decorator\DecoratorTrait;
 /**
  * AttLog
  *
- * @ORM\Table(name="att_log", indexes={@ORM\Index(name="sn", columns={"sn"}), @ORM\Index(name="pin", columns={"pin"})})
+ * @ORM\Table(name="att_log", indexes={@ORM\Index(name="attId", columns={"att_id"})})
  * @ORM\Entity
  */
 class FingerspotAttendance
@@ -22,8 +22,6 @@ class FingerspotAttendance
      * @var string
      *
      * @ORM\Column(name="sn", type="string", length=30, nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $sn;
 
@@ -38,8 +36,6 @@ class FingerspotAttendance
      * @var string
      *
      * @ORM\Column(name="pin", type="string", length=32, nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $pin;
 
@@ -75,6 +71,8 @@ class FingerspotAttendance
      * @var string
      *
      * @ORM\Column(name="att_id", type="string", length=50, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $attId = '0';
 

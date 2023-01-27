@@ -53,6 +53,7 @@ class EmployeeModel implements Normalizable
                 'middleName',
                 'employeeId',
                 ['getEmployeeTerminationRecord', 'getId'],
+                'pin'
             ]
         );
         $this->setAttributeNames(
@@ -63,6 +64,7 @@ class EmployeeModel implements Normalizable
                 'middleName',
                 'employeeId',
                 'terminationId',
+                'pin'
             ]
         );
     }

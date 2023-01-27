@@ -20,9 +20,7 @@
 use OrangeHRM\Core\Traits\ServiceContainerTrait;
 use OrangeHRM\Framework\Http\Request;
 use OrangeHRM\Framework\PluginConfigurationInterface;
-use OrangeHRM\Framework\Services;
 use OrangeHRM\Fingerspot\Service\FingerspotAttendanceService;
-use OrangeHRM\Fingerspot\Traits\Service\FingerspotFrameworkServices;
 
 class FingerspotPluginConfiguration implements PluginConfigurationInterface
 {

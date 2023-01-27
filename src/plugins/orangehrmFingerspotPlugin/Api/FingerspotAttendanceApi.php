@@ -31,7 +31,8 @@ class FingerspotAttendanceAPI extends Endpoint implements CrudEndpoint
 {
     use FingerspotAttendanceServiceTrait;
     public const FILTER_PIN = 'pin';
-    public const FILTER_SCAN_DATE = 'scanDate';
+    public const FILTER_START_DATE = 'startDate';
+    public const FILTER_END_DATE = 'endDate';
 
     public const PARAM_RULE_FILTER_PIN_MAX_LENGTH = 30;
 
@@ -88,13 +89,19 @@ class FingerspotAttendanceAPI extends Endpoint implements CrudEndpoint
             )
         );
 
-        $fingerspotAttendanceParamHolder->setScanDate(
+        $fingerspotAttendanceParamHolder->setStartDate(
             $this->getRequestParams()->getDateTimeOrNull(
                 RequestParams::PARAM_TYPE_QUERY,
-                self::FILTER_SCAN_DATE
+                self::FILTER_START_DATE
             )
         );
         
+        $fingerspotAttendanceParamHolder->setEndDate(
+            $this->getRequestParams()->getDateTimeOrNull(
+                RequestParams::PARAM_TYPE_QUERY,
+                self::FILTER_END_DATE
+            )
+        );
         $fingerspotAttendanceList = $this->getFingerspotAttendanceService()->getFingerspotAttendanceList($fingerspotAttendanceParamHolder);
         $count = $this->getFingerspotAttendanceService()->getFingerspotAttendanceCount($fingerspotAttendanceParamHolder);
         return new EndpointCollectionResult(
@@ -119,7 +126,13 @@ class FingerspotAttendanceAPI extends Endpoint implements CrudEndpoint
             ),
             $this->getValidationDecorator()->notRequiredParamRule(
                 new ParamRule(
-                    self::FILTER_SCAN_DATE,
+                    self::FILTER_START_DATE,
+                    new Rule(Rules::DATE_TIME)
+                )
+            ),
+            $this->getValidationDecorator()->notRequiredParamRule(
+                new ParamRule(
+                    self::FILTER_END_DATE,
                     new Rule(Rules::DATE_TIME)
                 )
             ),

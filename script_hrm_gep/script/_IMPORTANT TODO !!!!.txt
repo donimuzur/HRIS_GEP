@@ -1,4 +1,0 @@
-- run script in script_hrm_gep
-- add frontend in src/client/src/pages.ts
-- add src/composer.json
-- add services in src/lib/framework/Services.php

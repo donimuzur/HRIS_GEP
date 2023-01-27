@@ -9,6 +9,7 @@ namespace OrangeHRM\Fingerspot\Controller;
 use OrangeHRM\Core\Controller\AbstractVueController;
 use OrangeHRM\Core\Helper\VueControllerHelper;
 use OrangeHRM\Core\Vue\Component;
+use OrangeHRM\Core\Vue\Prop;
 use OrangeHRM\Framework\Http\Request;
 
 class FingerspotAttendanceController extends AbstractVueController
@@ -19,6 +20,8 @@ class FingerspotAttendanceController extends AbstractVueController
     public function preRender(Request $request): void
     {
         $component = new Component('fingerspotattendance-list');
+        
+        $component->addProp(new Prop('filters_scandate', Prop::TYPE_STRING, date('Y-m-d')));
         // $component = new Component('employee-list');
         $this->setComponent($component);
 
@@ -30,6 +33,7 @@ class FingerspotAttendanceController extends AbstractVueController
             'canUpdate' => true,
             'canDelete' => $allowedToDeleteActive || $allowedToDeleteTerminated,
         ];
+        
         $this->getContext()->set(
             VueControllerHelper::PERMISSIONS,
             $permissionsArray
